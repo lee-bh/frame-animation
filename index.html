@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>frame-animation example</title>
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="http://leebh.net/lab/bh.js/frame-animation.html">
+	<meta property="og:image" content="./img/site-thumb.jpg">
+	<meta property="og:title" content="frame-animation">
+	<meta property="og:description" content="frame-animation without p5.js or paper.js">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+	<link rel='stylesheet' href='http://hknudesign.kr/css/normalize.css'>
+	<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+	<script src="http://leebh.net/js/bh.js" charset="utf-8"></script>
+	<script src="http://leebh.net/lab/bh.js/js/mIcon.js" charset="utf-8"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body id="body"> 
+<div id="display"></div>
+<script>
+	
+	var tiltLR, tiltBF, compass;
+	window.addEventListener('deviceorientation', 
+		function(eventData) {
+			tiltLR = eventData.gamma;
+			tiltBF = eventData.beta;
+			compass = eventData.alpha;
+		}, false
+	);
+
+	var view = getBoundBH();
+	var frame = 0;
+	var iconSize = "24px";
+	var v=5, hspeed=[], vspeed=[];
+	var hacc = 0, vacc = 0;
+
+	display.innerHTML = view.width + ',' + view.height;
+window.onload = function(){
+
+	(function setup(){
+		document.querySelector("#body").style.background = "red";
+	})();
+
+	(function loop(){
+		frame++;
+
+		//if(frame%30 == 0){ generateObj() }
+		if(frame == 0){generateObj();}
+		var o = document.getElementsByClassName("material-icons");
+		if(!tiltBF){ tiltBF = 0; tiltLR = 0}
+		else{ hacc = parseInt(tiltLR/100); vacc = parseInt(tiltBF/100);}
+		
+		var c = o.length;
+		for(var i=0;i<c;i++){
+			var style = window.getComputedStyle(o[i],null);
+			var l = parseInt(style.getPropertyValue("left"));
+			var r = parseInt(style.getPropertyValue("right"));
+			var t = parseInt(style.getPropertyValue("top"));
+			var b = parseInt(style.getPropertyValue("bottom"));
+			display.innerHTML = l +","+ r +","+ t +","+b;
+			if(l<0){ hspeed[i] = v;};
+			if(r<0){ hspeed[i] = -v;};
+			if(t<0){ vspeed[i] = v;};
+			if(b<0){ vspeed[i] = -v};
+			o[i].style.left = l + hspeed[i]+ "px";
+			o[i].style.top = t + vspeed[i] + "px";
+		}
+		
+		var aniSession = window.requestAnimationFrame(loop);	
+		//window.cancelAnimationFrame(aniSession);	
+	})();
+
+	function generateObj(){
+		var t = document.createElement("i");
+		var n = randomBH(0,mIcon.length);
+		t.setAttribute("id",mIcon[n]);
+		t.setAttribute("class", "material-icons");
+		t.style.position = "absolute";
+		t.style.top = randomBH(0,view.height) + "px";
+		t.style.left = randomBH(0,view.width) + "px";
+		t.style.color = "white";
+		t.style.width = iconSize;
+		t.style.height = iconSize;
+		t.innerHTML = mIcon[n];
+		hspeed.push(v); vspeed.push(v);
+		document.querySelector("#body").appendChild(t);
+	}
+}
+</script>
+</body>
