@@ -42,8 +42,8 @@ window.onload = function(){
 	(function loop(){
 		frame++;
 
-		//if(frame%30 == 0){ generateObj() }
-		if(frame == 0){generateObj();}
+		if(frame%30 == 0){ generateObj() }
+		//if(frame == 0){generateObj();}
 		var o = document.getElementsByClassName("material-icons");
 		if(!tiltBF){ tiltBF = 0; tiltLR = 0}
 		else{ hacc = parseInt(tiltLR/100); vacc = parseInt(tiltBF/100);}
