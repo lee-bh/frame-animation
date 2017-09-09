@@ -13,7 +13,7 @@
 	<script src="./mIcon.js" charset="utf-8"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body id="body"> 
+<body> 
 <div id="display"></div>
 <script>
 	
@@ -31,8 +31,8 @@
 	var iconSize = "24px";
 	var v=5, hspeed=[], vspeed=[];
 	var hacc = 0, vacc = 0;
-
 	display.innerHTML = view.width + ',' + view.height;
+	
 window.onload = function(){
 
 	(function setup(){
@@ -41,7 +41,6 @@ window.onload = function(){
 
 	(function loop(){
 		frame++;
-
 		if(frame%30 == 0){ generateObj() }
 		//if(frame == 0){generateObj();}
 		var o = document.getElementsByClassName("material-icons");
