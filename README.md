@@ -1,6 +1,6 @@
-# Frame Animation
-
-This project demonstrates a simple frame animation using HTML5 Canvas and JavaScript. It cycles through a series of Material Design icons, displaying them one after another to create an animation effect.
+# Animation by
+# RequestAnimationFrame();
+This project demonstrates a simple frame animation using HTML5 Canvas and JavaScript. It cycles through a series of Material Design icons, displaying them one after another to create an animation effect. 
 
 ## Technologies Used
 
